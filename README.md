@@ -8,6 +8,12 @@
 - [ ] 4. 開始填入 A B 欄位 (注意: 只有在有在 C 欄位中, 有出現日期的那一列 才能填入 A B 欄位)
 - [ ] 5. 輸出 excel 看結果是否正確
 
+### 額外功能
+
+- [ ] input 美化
+  - [vue-upload-component](https://github.com/lian-yue/vue-upload-component)
+- [ ] PWA Notify, 跳出通知, 轉換完成, 開始下載...
+
 ## 參考資料
 
 - [sheetjs](https://github.com/SheetJS/sheetjs)
