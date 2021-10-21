@@ -52,10 +52,7 @@
 /* eslint-disable no-underscore-dangle */
 
 import XLSX from 'xlsx';
-
-const makeCols = (refstr) => Array(XLSX.utils.decode_range(refstr).e.c + 1)
-  .fill(0)
-  .map((x, i) => ({ name: XLSX.utils.encode_col(i), key: i }));
+import { loadExcelFile } from '@/utils/excelUtil';
 
 const _SheetJSFT = [
   'xlsx', 'xlsb', 'xlsm', 'xls', 'xml', 'csv', 'txt', 'ods', 'fods', 'uos', 'sylk', 'dif', 'dbf', 'prn', 'qpw', '123', 'wb*', 'wq*', 'html', 'htm',
@@ -79,9 +76,14 @@ export default {
     };
   },
   methods: {
-    _suppress(evt) { evt.stopPropagation(); evt.preventDefault(); },
+    _suppress(evt) {
+      evt.stopPropagation();
+      evt.preventDefault();
+    },
     _drop(evt) {
-      evt.stopPropagation(); evt.preventDefault();
+      evt.stopPropagation();
+      evt.preventDefault();
+
       const { files } = evt.dataTransfer;
       if (files && files[0]) this._file(files[0]);
     },
@@ -99,21 +101,10 @@ export default {
     },
     _file(file) {
       /* Boilerplate to set up FileReader */
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        /* Parse data */
-        const ab = e.target.result;
-        const wb = XLSX.read(new Uint8Array(ab), { type: 'array' });
-        /* Get first worksheet */
-        const wsname = wb.SheetNames[0];
-        const ws = wb.Sheets[wsname];
-        /* Convert array of arrays */
-        const data = XLSX.utils.sheet_to_json(ws, { header: 1 });
-        /* Update state */
+      loadExcelFile(file).then(({ data, cols }) => {
         this.data = data;
-        this.cols = makeCols(ws['!ref']);
-      };
-      reader.readAsArrayBuffer(file);
+        this.cols = cols;
+      });
     },
   },
 };
