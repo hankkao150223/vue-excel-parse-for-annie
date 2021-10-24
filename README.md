@@ -1,10 +1,11 @@
 # vue-excel-parse-for-annie
 
+[Demo site](https://hankkao150223.github.io/vue-excel-parse-for-annie/)
+
 ## TODO
 
-- 規劃 utils/excelUtil.js
-- 規劃 helpers/幫 excel 新增兩行
-- 規劃 components/excelParse 幫 excel 分析 第幾行與第幾行 (或是將這種邏輯 寫在其他地方...)
+- [ ] 更改輸出的檔案名稱
+- [ ] 拖拉進去 直接 export file
 
 ### 待討論
 
