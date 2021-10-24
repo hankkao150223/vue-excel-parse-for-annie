@@ -1,6 +1,7 @@
 /* eslint-disable no-continue */
 
 const COLUMN_A = 0;
+const COLUMN_C = 2;
 
 /**
  * 製作新的 columns "門市代號"與"門市地區"
@@ -14,9 +15,8 @@ export const parseExcelContent = (rows) => {
   const storeList = parseExcelContentStep01(rows, '門市專櫃:');
   // 先分群
   const storeGroup = parseExcelContentStep02(rows, storeList);
-  // 開始搜尋 A 欄位中帶有日期的列
-  const storeFillIdxList = parseExcelContentStep03(rows, storeGroup);
-  return storeFillIdxList;
+  // 開始搜尋 A 欄位中帶有日期的列, 並填入 新欄位
+  return parseExcelContentStep03(rows, storeGroup);
 };
 
 function parseExcelContentStep01(rows, storeKeyWord) {
@@ -53,19 +53,22 @@ function parseExcelContentStep02(rows, storeList) {
 }
 
 function parseExcelContentStep03(rows, storeGroup) {
-  return storeGroup.map((group) => {
+  const newRows = rows.map((row) => [undefined, undefined, ...row]);
+
+  storeGroup.forEach((group) => {
     const {
       code, area, startIdx, endIdx,
     } = group;
-    const idxList = [];
     for (let index = startIdx; index < endIdx; index += 1) {
-      const row = rows[index];
+      const row = newRows[index];
       // 分析字串是否符合日期格式
       // 參考: https://thewebdev.info/2021/03/27/how-to-check-if-a-string-is-a-date-string-with-javascript/
-      const isDateText = !!Date.parse(row[COLUMN_A]);
+      const isDateText = typeof row[COLUMN_C] === 'string'
+        && row[COLUMN_C].match(/^(\d{4})\/(\d{1,2})\/(\d{1,2})$/);
       if (!isDateText) continue;
-      idxList.push(index);
+      row[0] = code;
+      row[1] = area;
     }
-    return { code, area, idxList };
   });
+  return newRows;
 }

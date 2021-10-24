@@ -51,6 +51,7 @@
 
 import XLSX from 'xlsx';
 import { loadExcelFile } from '@/utils/excelUtil';
+import { parseExcelContent } from '@/helpers/excelParse';
 
 const _SheetJSFT = [
   'xlsx',
@@ -120,9 +121,10 @@ export default {
     },
     _file(file) {
       /* Boilerplate to set up FileReader */
-      loadExcelFile(file).then(({ data, cols }) => {
-        this.data = data;
-        this.cols = cols;
+      loadExcelFile(file).then((data) => {
+        const newData = parseExcelContent(data);
+        console.log(newData);
+        this.data = newData;
       });
     },
   },
