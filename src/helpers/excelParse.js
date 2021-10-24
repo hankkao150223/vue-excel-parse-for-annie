@@ -59,7 +59,7 @@ function parseExcelContentStep03(rows, storeGroup) {
     const {
       code, area, startIdx, endIdx,
     } = group;
-    for (let index = startIdx; index < endIdx; index += 1) {
+    for (let index = startIdx; index <= endIdx; index += 1) {
       const row = newRows[index];
       // 分析字串是否符合日期格式
       // 參考: https://thewebdev.info/2021/03/27/how-to-check-if-a-string-is-a-date-string-with-javascript/
