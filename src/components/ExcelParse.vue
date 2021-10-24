@@ -19,11 +19,9 @@
       </div>
       <div class="row">
         <div class="col-xs-12">
-          <button
-            class="btn btn-success"
-            :disabled="data.length ? false : true"
-            @click="_export"
-          >Export</button>
+          <button class="btn btn-success" :disabled="data.length ? false : true" @click="_export">
+            Export
+          </button>
         </div>
       </div>
       <div class="row">
@@ -32,12 +30,12 @@
             <table class="table table-striped">
               <thead>
                 <tr>
-                  <th v-for="c in cols" :key="c.key">{{c.name}}</th>
+                  <th v-for="c in cols" :key="c.key">{{ c.name }}</th>
                 </tr>
               </thead>
               <tbody>
                 <tr v-for="(r, key) in data" :key="key">
-                  <td v-for="c in cols" :key="c.key"> {{ r[c.key] }}</td>
+                  <td v-for="c in cols" :key="c.key">{{ r[c.key] }}</td>
                 </tr>
               </tbody>
             </table>
@@ -55,8 +53,29 @@ import XLSX from 'xlsx';
 import { loadExcelFile } from '@/utils/excelUtil';
 
 const _SheetJSFT = [
-  'xlsx', 'xlsb', 'xlsm', 'xls', 'xml', 'csv', 'txt', 'ods', 'fods', 'uos', 'sylk', 'dif', 'dbf', 'prn', 'qpw', '123', 'wb*', 'wq*', 'html', 'htm',
-].map((x) => `.${x}`).join(',');
+  'xlsx',
+  'xlsb',
+  'xlsm',
+  'xls',
+  'xml',
+  'csv',
+  'txt',
+  'ods',
+  'fods',
+  'uos',
+  'sylk',
+  'dif',
+  'dbf',
+  'prn',
+  'qpw',
+  '123',
+  'wb*',
+  'wq*',
+  'html',
+  'htm',
+]
+  .map((x) => `.${x}`)
+  .join(',');
 
 export default {
   name: 'ExcelParse',

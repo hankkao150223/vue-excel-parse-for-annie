@@ -20,4 +20,10 @@ module.exports = {
     'import/no-extraneous-dependencies': ['error', { devDependencies: true }],
     'no-use-before-define': 'off',
   },
+  globals: {
+    // jest function
+    describe: true,
+    test: true,
+    expect: true,
+  },
 };
